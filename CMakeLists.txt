@@ -37,10 +37,13 @@ project(leoCAN)
 set( INCLUDE_DIR "include/leoCAN" )
 set( SRC_DIR "src" )
 
-message("leoCAN_SOURCE_DIR ${leoCAN_SOURCE_DIR}")
+#set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+#set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 set( leoCAN_INCLUDE_DIRS "${leoCAN_SOURCE_DIR}/include" )
-set( leoCAN_LIBRARIES_PATH )
+set( leoCAN_LIBRARY_DIRS )
 set( leoCAN_LIBRARIES )
 set( leoCAN_DEFINITIONS )
 
@@ -65,8 +68,8 @@ if( RTSocketCAN_FOUND )
   set( SOURCE_FILES ${SOURCE_FILES} 
     ${SRC_DIR}/RTSocketCAN.cpp )
 
-  list(APPEND leoCAN_INCLUDE_DIRS ${RTDM_INCLUDE_DIR} )
-  list(APPEND leoCAN_LIBRARIES_PATH ${RTDM_LIBRARIES_PATH} )
+  list(APPEND leoCAN_INCLUDE_DIRS ${RTDM_INCLUDE_DIRS} )
+  list(APPEND leoCAN_LIBRARY_DIRS ${RTDM_LIBRARY_DIRS} )
   list(APPEND leoCAN_LIBRARIES ${RTDM_LIBRARIES} )
   list(APPEND leoCAN_DEFINITIONS ${RTDM_DEFINITIONS} )
 
@@ -83,3 +86,13 @@ add_definitions( ${leoCAN_DEFINITIONS} )
 # Create target for library
 add_library( leoCAN SHARED ${HEADER_FILES} ${SOURCE_FILES} )
 target_link_libraries( leoCAN ${leoCAN_LIBRARIES} )
+
+# Create configuration file
+list(APPEND leoCAN_INCLUDE_DIRS )
+list(APPEND leoCAN_LIBRARY_DIRS ${LIBRARY_OUTPUT_PATH} )
+list(APPEND leoCAN_LIBRARIES leoCAN )
+
+configure_file(
+  "${leoCAN_SOURCE_DIR}/cmake/leoCANConfig.cmake.in"
+  "${leoCAN_BINARY_DIR}/share/cmake/leoCAN/leoCANConfig.cmake"
+  @ONLY@ )
