@@ -49,10 +49,10 @@ namespace leoCAN {
       */
     class Filter {
     public:
-      CANBusFrame::Mask mask_;
-      CANBusFrame::ID id_;
+      CANBusFrame::mask_t mask_;
+      CANBusFrame::id_t id_;
 
-      Filter( CANBusFrame::Mask mask, CANBusFrame::ID id ) :
+      Filter( CANBusFrame::mask_t mask, CANBusFrame::id_t id ) :
         mask_( mask ),
         id_( id )
       { }

@@ -2,6 +2,10 @@
 #ifndef _LEOCAN_CANBUSFRAME_H
 #define _LEOCAN_CANBUSFRAME_H
 
+#include <vector>
+#include <iostream>
+#include <iomanip>
+
 namespace leoCAN {
   //! CAN frame implementation
   /**
@@ -62,7 +66,7 @@ namespace leoCAN {
       */
     CANBusFrame( id_t canid, data_field_t data, data_len_t data_len );
 
-    CANBusFrame( id_t canid, const std::vector<data_t>& data );
+    CANBusFrame( id_t canid, const std::vector<CANBusFrame::data_t>& data );
 
     //! Return the identifier of the frame
     inline id_t GetID() const { return id_; }
@@ -88,15 +92,16 @@ namespace leoCAN {
         << (int)frame.GetID() << std::endl
         << "Length: " << (int)frame.GetLength() << std::endl 
         << "Data: ";
-      for( DataLength i=0; i<frame.GetLength(); i++ ) {
+      for( data_len_t i=0; i<frame.GetLength(); i++ ) {
         os << "0x" << std::hex << std::setfill('0')
           << std::setw(2) 
-          << (int)(frame.data[i]) << " ";
+          << (int)(frame.data_[i]) << " ";
       }
       os << std::dec;
       return os;
     }
 
   }; // Frame
+}
 
 #endif // ifndef _LEOCAN_CANBUSFRAME_H

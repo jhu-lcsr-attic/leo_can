@@ -60,8 +60,8 @@ CANBusFrame::CANBusFrame(
 }
 
 CANBusFrame::CANBusFrame(
-    CANBusFrame::ID id, 
-    const std::vector<CANBusFrame::Data>& data) :
+    CANBusFrame::id_t id, 
+    const std::vector<CANBusFrame::data_t>& data) :
   id_(0),
   data_len_(0)
 {
@@ -75,13 +75,13 @@ CANBusFrame::CANBusFrame(
 			<< std::endl;
   } else {
     // Raise an error if more than 8 bytes are given
-    if( data_len > DATA_FIELD_LEN) {
+    if(data.size()  > DATA_FIELD_LEN) {
       std::cerr << __FILE__ << __LINE__ << std::endl
-			  << ": Illegal message length: " << data_len
+			  << ": Illegal message length: " << data.size()
 			  << std::endl;
     } else {
       id_ = id;                                 // Copy the CAN ID
-      data_len_ = data_len;                     // Copy the data length
+      data_len_ = data.size();                     // Copy the data length
       std::copy(data.begin(),data.end(),data_); // Copy the data
     }
   }

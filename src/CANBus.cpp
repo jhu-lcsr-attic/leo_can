@@ -23,7 +23,7 @@ using namespace leoCAN;
 CANBus::CANBus(
     CANBus::Rate rate,
     CANBus::Loopback loopback ) :
-  rate_(rate)
+  rate_(rate),
   loopback_( loopback )
 { 
 }

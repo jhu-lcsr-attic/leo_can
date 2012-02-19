@@ -15,6 +15,8 @@ http://www.cisst.org/cisst/license.txt.
 --- end cisst license ---
 */
 
+#include <cstring>
+#include <cstdio>
 
 #include <leoCAN/RTSocketCAN.h>
 
@@ -147,7 +149,7 @@ CANBus::Errno RTSocketCAN::Send(
   frame.can_dlc = (uint8_t)canframe.GetLength();  
 
   const uint8_t* data = (const uint8_t*)canframe.GetData();
-  std::copy(data, data+CANBusFrame::DATA_FIELD_LEN, frame.data)
+  std::copy(data, data+CANBusFrame::DATA_FIELD_LEN, frame.data);
 
   // send the frame
   int error = rt_dev_send(
@@ -203,8 +205,8 @@ CANBus::Errno RTSocketCAN::AddFilter( const CANBus::Filter& filter ) {
     }
     */
 
-    filters[n_filters_].can_mask = filter.mask;
-    filters[n_filters_].can_id   = filter.id;
+    filters_[n_filters_].can_mask = filter.mask_;
+    filters_[n_filters_].can_id   = filter.id_;
     n_filters_++;
 
     // Set the filter to the socket
@@ -212,7 +214,7 @@ CANBus::Errno RTSocketCAN::AddFilter( const CANBus::Filter& filter ) {
           canfd_, 
           SOL_CAN_RAW, 
           CAN_RAW_FILTER, 
-          filters, 
+          filters_, 
           n_filters_*sizeof(struct can_filter) ) )
     {
       std::cerr << "Couldn't set the socket filters." << std::endl;

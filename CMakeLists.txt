@@ -32,12 +32,21 @@ if(False)
   #target_link_libraries(example ${PROJECT_NAME})
 endif()
 
+project(leoCAN)
+
 set( INCLUDE_DIR "include/leoCAN" )
 set( SRC_DIR "src" )
 
+message("leoCAN_SOURCE_DIR ${leoCAN_SOURCE_DIR}")
+
+set( leoCAN_INCLUDE_DIRS "${leoCAN_SOURCE_DIR}/include" )
+set( leoCAN_LIBRARIES_PATH )
+set( leoCAN_LIBRARIES )
+set( leoCAN_DEFINITIONS )
+
 set( HEADER_FILES 
-  ${INCLUDE_DIR}/osaCANBus.h 
-  ${INCLUDE_DIR}/osaCANBusFrame.h )
+  ${INCLUDE_DIR}/CANBus.h 
+  ${INCLUDE_DIR}/CANBusFrame.h )
 
 set( SOURCE_FILES 
   ${SRC_DIR}/CANBus.cpp
@@ -48,7 +57,7 @@ set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${leoCAN_SOURCE_DIR}/cmake")
 
 # Check for RT Socket CAN 
 find_package( RTSocketCAN )
-if( RTSocketCANFound )
+if( RTSocketCAN_FOUND )
   message("-- Building leoCAN with RTSocketCAN support.") 
   set( HEADER_FILES ${HEADER_FILES} 
     ${INCLUDE_DIR}/RTSocketCAN.h )
@@ -56,14 +65,20 @@ if( RTSocketCANFound )
   set( SOURCE_FILES ${SOURCE_FILES} 
     ${SRC_DIR}/RTSocketCAN.cpp )
 
-  set( leoCAN_LIBRARIES_PATH ${RTDM_LIBRARIES_PATH} )
-  set( leoCAN_LIBRARIES ${RTDM_LIBRARIES} )
-  set( leoCAN_DEFINITIONS ${RTDM_DEFINITIONS} )
+  list(APPEND leoCAN_INCLUDE_DIRS ${RTDM_INCLUDE_DIR} )
+  list(APPEND leoCAN_LIBRARIES_PATH ${RTDM_LIBRARIES_PATH} )
+  list(APPEND leoCAN_LIBRARIES ${RTDM_LIBRARIES} )
+  list(APPEND leoCAN_DEFINITIONS ${RTDM_DEFINITIONS} )
 
-  include_directories( ${RTDM_INCLUDE_DIR} )
 else()
   message("-- Not building leoCAN with RTSocketCAN support.") 
 endif()
+
+# Add include directories
+include_directories( ${leoCAN_INCLUDE_DIRS} )
+
+# Add definitions
+add_definitions( ${leoCAN_DEFINITIONS} )
 
 # Create target for library
 add_library( leoCAN ${HEADER_FILES} ${SOURCE_FILES} )
