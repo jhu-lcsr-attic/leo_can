@@ -81,5 +81,5 @@ include_directories( ${leoCAN_INCLUDE_DIRS} )
 add_definitions( ${leoCAN_DEFINITIONS} )
 
 # Create target for library
-add_library( leoCAN ${HEADER_FILES} ${SOURCE_FILES} )
+add_library( leoCAN SHARED ${HEADER_FILES} ${SOURCE_FILES} )
 target_link_libraries( leoCAN ${leoCAN_LIBRARIES} )
