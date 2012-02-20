@@ -9,7 +9,9 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/leoCAN</url>
 
-  <rosdep name="xenomai"/>
+  <export>
+    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -lleoCAN"/>
+  </export>
 
 </package>
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6.0)
 
-if(False)
+if(False AND $ENV{ROS_ROOT})
   include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
   # Set the build type.  Options are:
@@ -12,11 +12,6 @@ if(False)
   #set(ROS_BUILD_TYPE RelWithDebInfo)
 
   rosbuild_init()
-
-  #set the default path for built executables to the "bin" directory
-  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-  #set the default path for built libraries to the "lib" directory
-  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
   #uncomment if you have defined messages
   #rosbuild_genmsg()
@@ -39,8 +34,8 @@ set( INCLUDE_DIR "include/leoCAN" )
 set( SRC_DIR "src" )
 
 # Set the executable and library output paths
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set( leoCAN_INCLUDE_DIRS "${leoCAN_SOURCE_DIR}/include" )
 set( leoCAN_LIBRARY_DIRS )
@@ -97,5 +92,5 @@ list(APPEND leoCAN_LIBRARIES leoCAN )
 
 configure_file(
   "${leoCAN_SOURCE_DIR}/cmake/leoCANConfig.cmake.in"
-  "${leoCAN_BINARY_DIR}/share/cmake/leoCAN/leoCANConfig.cmake"
+  "${leoCAN_SOURCE_DIR}/share/cmake/leoCANConfig.cmake"
   @ONLY@ )
