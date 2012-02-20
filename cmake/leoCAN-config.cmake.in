@@ -3,6 +3,3 @@ set( leoCAN_INCLUDE_DIRS "@leoCAN_INCLUDE_DIRS@" )
 set( leoCAN_LIBRARY_DIRS "@leoCAN_LIBRARY_DIRS@" )
 set( leoCAN_LIBRARIES   "@leoCAN_LIBRARIES@" )
 set( leoCAN_DEFINITIONS "@leoCAN_DEFINITIONS@" )
-
-#find_library( leoCAN ${leoCAN_LIBRARY_DIRS} )
-#list( APPEND leoCAN_LIBRARIES ${leoCAN_LIB} )

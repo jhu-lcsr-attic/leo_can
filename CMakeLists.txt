@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4.6)
+cmake_minimum_required(VERSION 2.6.0)
 
 if(False)
   include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
@@ -34,26 +34,20 @@ endif()
 
 project(leoCAN)
 
+# Set the include and source paths
 set( INCLUDE_DIR "include/leoCAN" )
 set( SRC_DIR "src" )
 
-#set the default path for built executables to the "bin" directory
+# Set the executable and library output paths
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 set( leoCAN_INCLUDE_DIRS "${leoCAN_SOURCE_DIR}/include" )
 set( leoCAN_LIBRARY_DIRS )
 set( leoCAN_LIBRARIES )
 set( leoCAN_DEFINITIONS )
-
-set( HEADER_FILES 
-  ${INCLUDE_DIR}/CANBus.h 
-  ${INCLUDE_DIR}/CANBusFrame.h )
-
-set( SOURCE_FILES 
-  ${SRC_DIR}/CANBus.cpp
-  ${SRC_DIR}/CANBusFrame.cpp )
+set( leoCAN_HEADER_FILES )
+set( leoCAN_SOURCE_FILES )
 
 # Add path to cmake modules in this package
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${leoCAN_SOURCE_DIR}/cmake")
@@ -62,16 +56,16 @@ set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${leoCAN_SOURCE_DIR}/cmake")
 find_package( RTSocketCAN )
 if( RTSocketCAN_FOUND )
   message("-- Building leoCAN with RTSocketCAN support.") 
-  set( HEADER_FILES ${HEADER_FILES} 
+  list(APPEND leoCAN_HEADER_FILES
     ${INCLUDE_DIR}/RTSocketCAN.h )
 
-  set( SOURCE_FILES ${SOURCE_FILES} 
+  list(APPEND leoCAN_SOURCE_FILES
     ${SRC_DIR}/RTSocketCAN.cpp )
 
   list(APPEND leoCAN_INCLUDE_DIRS ${RTDM_INCLUDE_DIRS} )
   list(APPEND leoCAN_LIBRARY_DIRS ${RTDM_LIBRARY_DIRS} )
-  list(APPEND leoCAN_LIBRARIES ${RTDM_LIBRARIES} )
   list(APPEND leoCAN_DEFINITIONS ${RTDM_DEFINITIONS} )
+  list(APPEND leoCAN_LIBRARIES ${RTDM_LIBRARIES} )
 
 else()
   message("-- Not building leoCAN with RTSocketCAN support.") 
@@ -79,12 +73,21 @@ endif()
 
 # Add include directories
 include_directories( ${leoCAN_INCLUDE_DIRS} )
-
+# Add linker directories
+link_directories( ${leoCAN_LIBRARY_DIRS} )
 # Add definitions
 add_definitions( ${leoCAN_DEFINITIONS} )
 
-# Create target for library
-add_library( leoCAN SHARED ${HEADER_FILES} ${SOURCE_FILES} )
+# Create leoCAN library
+list(APPEND leoCAN_HEADER_FILES 
+  ${INCLUDE_DIR}/CANBus.h 
+  ${INCLUDE_DIR}/CANBusFrame.h )
+
+list(APPEND leoCAN_SOURCE_FILES 
+  ${SRC_DIR}/CANBus.cpp
+  ${SRC_DIR}/CANBusFrame.cpp )
+
+add_library( leoCAN SHARED ${leoCAN_HEADER_FILES} ${leoCAN_SOURCE_FILES} )
 target_link_libraries( leoCAN ${leoCAN_LIBRARIES} )
 
 # Create configuration file
