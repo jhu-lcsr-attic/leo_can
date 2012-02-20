@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6.0)
 
-if(False AND $ENV{ROS_ROOT})
+set(ROS_ROOT $ENV{ROS_ROOT})
+if(ROS_ROOT)
   include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
   # Set the build type.  Options are:
