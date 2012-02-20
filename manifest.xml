@@ -1,11 +1,9 @@
 <package>
   <description brief="leoCAN">
-
-     leoCAN
-
+    This is a package for CANBus communication via various hardware.
   </description>
-  <author>Jonathan Bohren</author>
-  <license>BSD</license>
+  <author>Simon Leonard/sleonard@jhu.edu, Jonathan Bohren/jbo@jhu.edu</author>
+  <license>CISST (http://www.cisst.org/cisst/license.txt)</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/leoCAN</url>
 
