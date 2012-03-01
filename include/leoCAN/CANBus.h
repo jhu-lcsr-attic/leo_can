@@ -1,7 +1,7 @@
 
 
-#ifndef _LEOCAN_CANBUS_H
-#define _LEOCAN_CANBUS_H
+#ifndef __LEOCAN_CANBUS_H
+#define __LEOCAN_CANBUS_H
 
 #include <leoCAN/CANBusFrame.h>
 
@@ -116,4 +116,4 @@ namespace leoCAN {
   };
 }
 
-#endif // ifndef _LEOCAN_CANBUS_H
+#endif // ifndef __LEOCAN_CANBUS_H

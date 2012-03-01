@@ -1,6 +1,6 @@
 
-#ifndef _LEOCAN_CANBUSFRAME_H
-#define _LEOCAN_CANBUSFRAME_H
+#ifndef __LEOCAN_CANBUSFRAME_H
+#define __LEOCAN_CANBUSFRAME_H
 
 #include <vector>
 #include <iostream>
@@ -104,4 +104,4 @@ namespace leoCAN {
   }; // Frame
 }
 
-#endif // ifndef _LEOCAN_CANBUSFRAME_H
+#endif // ifndef __LEOCAN_CANBUSFRAME_H

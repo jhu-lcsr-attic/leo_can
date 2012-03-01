@@ -8,7 +8,7 @@
   <url>http://ros.org/wiki/leoCAN</url>
 
   <export>
-    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -lleoCAN"/>
+    <cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib -Wl,-rpath,-L${prefix}lib -lleoCAN"/>
   </export>
 
 </package>

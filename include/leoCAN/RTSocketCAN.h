@@ -16,10 +16,12 @@ http://www.cisst.org/cisst/license.txt.
 */
 
 
-#ifndef _LEOCAN_RTSOCKETCAN_H
-#define _LEOCAN_RTSOCKETCAN_H
+#ifndef __LEOCAN_RTSOCKETCAN_H
+#define __LEOCAN_RTSOCKETCAN_H
 
-#ifdef __XENO__ // Only compile if xenomai
+#ifndef __XENO__ // Warn if this isn't defined
+#warning "Trying to build RTSocketCAN without __XENO__ defined!"
+#endif // ifndef __XENO__
 
 #include <rtdm/rtcan.h>            // Defines for the RT CAN socket
 
@@ -113,6 +115,5 @@ namespace leoCAN {
   };
 }
 
-#endif // ifdef __XENO__
 
-#endif // ifndef _LEOCAN_RTSOCKETCAN_H
+#endif // ifndef __LEOCAN_RTSOCKETCAN_H
