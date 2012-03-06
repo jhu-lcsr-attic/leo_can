@@ -210,14 +210,15 @@ CANBus::Errno RTSocketCAN::AddFilter( const CANBus::Filter& filter ) {
     n_filters_++;
 
     // Set the filter to the socket
-    if( rt_dev_setsockopt(
+    int rt_error = 0;
+    if( rt_error = rt_dev_setsockopt(
           canfd_, 
           SOL_CAN_RAW, 
           CAN_RAW_FILTER, 
           filters_, 
           n_filters_*sizeof(struct can_filter) ) )
     {
-      std::cerr << "Couldn't set the socket filters." << std::endl;
+      std::cerr << "Couldn't set the socket filter ("<<filter.mask_<<", "<<filter.id_<<") on socket descriptor "<<canfd_<<": " <<strerror(-rt_error)<< std::endl;
       return CANBus::EFAILURE;
     }
 
