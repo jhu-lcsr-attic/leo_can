@@ -19,10 +19,6 @@ http://www.cisst.org/cisst/license.txt.
 #ifndef __LEOCAN_RTSOCKETCAN_H
 #define __LEOCAN_RTSOCKETCAN_H
 
-#ifndef __XENO__ // Warn if this isn't defined
-#warning "Trying to build RTSocketCAN without __XENO__ defined!"
-#endif // ifndef __XENO__
-
 #include <rtdm/rtcan.h>            // Defines for the RT CAN socket
 
 #include <leoCAN/CANBus.h>       // the CAN base class
