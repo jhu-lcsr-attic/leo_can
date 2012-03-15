@@ -30,6 +30,7 @@ RTSocketCAN::RTSocketCAN(
     CANBus::Loopback loopback ) : 
   CANBus( rate, loopback ),
   device_name_( device_name ),
+  canfd_(-1),
   n_filters_( 0 )
 {
   // Check if the device name is empty
@@ -39,16 +40,6 @@ RTSocketCAN::RTSocketCAN(
 }
 
 RTSocketCAN::~RTSocketCAN() { 
-  int rt_error = 0;
-  if( rt_error = rt_dev_setsockopt(
-        canfd_, 
-        SOL_CAN_RAW, 
-        CAN_RAW_FILTER, 
-        filters_, 
-        0 ) )
-  {
-    std::cerr << "Couldn't clear the socket filters on socket descriptor "<<canfd_<<": " <<strerror(-rt_error)<< std::endl;
-  }
 }
 
 CANBus::Errno RTSocketCAN::Open()
@@ -138,10 +129,24 @@ CANBus::Errno RTSocketCAN::Open()
 
 CANBus::Errno RTSocketCAN::Close(){
   // close the socket
+  if(canfd_ >=0 ) {
+    int rt_error = 0;
+    if( rt_error = rt_dev_setsockopt(
+          canfd_, 
+          SOL_CAN_RAW, 
+          CAN_RAW_FILTER, 
+          filters_, 
+          0 ) )
+    {
+      std::cerr << "Couldn't clear the socket filters on socket descriptor "<<canfd_<<": " <<strerror(-rt_error)<< std::endl;
+    }
 
-  if( rt_dev_close( canfd_ ) ){
-    std::cerr << "Couldn't close the socket." << std::endl;
-    return EFAILURE;
+    if( rt_dev_close( canfd_ ) ){
+      std::cerr << "Couldn't close the socket." << std::endl;
+      return EFAILURE;
+    }
+
+    canfd_ = -1;
   }
 
   return ESUCCESS;
