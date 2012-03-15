@@ -38,7 +38,18 @@ RTSocketCAN::RTSocketCAN(
   }
 }
 
-RTSocketCAN::~RTSocketCAN() { }
+RTSocketCAN::~RTSocketCAN() { 
+  int rt_error = 0;
+  if( rt_error = rt_dev_setsockopt(
+        canfd_, 
+        SOL_CAN_RAW, 
+        CAN_RAW_FILTER, 
+        filters_, 
+        0 ) )
+  {
+    std::cerr << "Couldn't clear the socket filters on socket descriptor "<<canfd_<<": " <<strerror(-rt_error)<< std::endl;
+  }
+}
 
 CANBus::Errno RTSocketCAN::Open()
 {
@@ -116,6 +127,7 @@ CANBus::Errno RTSocketCAN::Open()
     return EFAILURE;
   }
 
+  timeout = 100000000;
   if( rt_dev_ioctl(canfd_, RTCAN_RTIOC_RCV_TIMEOUT, &timeout) ){
     perror("RTSocketCAN::open: Couldn't set the recv timeout: ");
     return EFAILURE;
@@ -179,7 +191,7 @@ CANBus::Errno RTSocketCAN::Recv(CANBusFrame& canframe, CANBus::Flags){
       0 );
 
   if( error < 0 ){
-    std::cerr << "Failed to receive the frame. Error: " << error 
+    std::cerr << "Failed to receive the CAN frame. Error: " << strerror(-error) 
       << std::endl;
     return EFAILURE;
   }
