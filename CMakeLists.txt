@@ -72,8 +72,8 @@ list(APPEND leo_can_LIBRARIES leo_can )
 catkin_package(
     DEPENDS  # TODO
     CATKIN_DEPENDS # TODO
-    INCLUDE_DIRS # TODO include
-    LIBRARIES # TODO
+    INCLUDE_DIRS include
+    LIBRARIES leo_cam
     CFG_EXTRAS leo_can-config.cmake.in
 )
 

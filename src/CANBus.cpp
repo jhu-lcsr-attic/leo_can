@@ -15,9 +15,9 @@ http://www.cisst.org/cisst/license.txt.
 --- end cisst license ---
 */
 
-#include <leoCAN/CANBus.h>
+#include <leo_can/CANBus.h>
 
-using namespace leoCAN;
+using namespace leo_can;
 
 // default constructor of a can device
 CANBus::CANBus(

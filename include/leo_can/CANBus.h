@@ -3,9 +3,9 @@
 #ifndef __LEOCAN_CANBUS_H
 #define __LEOCAN_CANBUS_H
 
-#include <leoCAN/CANBusFrame.h>
+#include <leo_can/CANBusFrame.h>
 
-namespace leoCAN {
+namespace leo_can {
   //! Generic CAN bus
   /**
     The only thing this class does is to define the interface that must be

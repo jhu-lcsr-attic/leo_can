@@ -21,7 +21,7 @@ http://www.cisst.org/cisst/license.txt.
 
 #include <rtdm/rtcan.h>            // Defines for the RT CAN socket
 
-#include <leoCAN/CANBus.h>       // the CAN base class
+#include <leo_can/CANBus.h>       // the CAN base class
 
 //! A Real Time Socket CAN device
 /**
@@ -34,7 +34,7 @@ http://www.cisst.org/cisst/license.txt.
    the RT CAN module enabled
 */
 
-namespace leoCAN {
+namespace leo_can {
 
   class RTSocketCAN : public CANBus {
 

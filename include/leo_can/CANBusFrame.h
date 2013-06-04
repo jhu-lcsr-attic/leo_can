@@ -6,7 +6,7 @@
 #include <iostream>
 #include <iomanip>
 
-namespace leoCAN {
+namespace leo_can {
   //! CAN frame implementation
   /**
     This defines a basic CAN frame. It does not support the extended frame 
