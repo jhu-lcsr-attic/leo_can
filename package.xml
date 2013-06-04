@@ -1,0 +1,20 @@
+<package>
+  <name>leo_can</name>
+  <version>0.1.0</version>
+  <description>This is a package for CANBus communication via various hardware.</description>
+  <maintainer email="jbo@jhu.edu">Jonathan Bohren</maintainer>
+
+  <license>CISST (http://www.cisst.org/cisst/license.txt)</license>
+
+  <url type="website">http://ros.org/wiki/leoCAN</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author email="sleonard@jhu.edu">Simon Leonard</author>
+  <author email="jbo@jhu.edu">Jonathan Bohren</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <cpp lflags="-L${prefix}/lib -Wl,-rpath,-L${prefix}lib -lleoCAN" cflags="-I${prefix}/include"/>
+  </export>
+</package>
