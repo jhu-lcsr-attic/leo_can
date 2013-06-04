@@ -82,5 +82,4 @@ install(FILES
   cmake/FindRTSocketCAN.cmake
   cmake/FindBitCtrl.cmake
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cmake
-  USE_SOURCE_PERMISSIONS
 )
