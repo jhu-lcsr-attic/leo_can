@@ -18,11 +18,11 @@ http://www.cisst.org/cisst/license.txt.
 #include <cstring>
 #include <cstdio>
 
-#include <leoCAN/RTSocketCAN.h>
+#include <leo_can/RTSocketCAN.h>
 
 #ifdef __XENO__ // Only compile if xenomai
 
-using namespace leoCAN;
+using namespace leo_can;
 
 RTSocketCAN::RTSocketCAN(
     const std::string& device_name, 

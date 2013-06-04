@@ -17,9 +17,9 @@ http://www.cisst.org/cisst/license.txt.
 
 #include <algorithm>
 
-#include <leoCAN/CANBusFrame.h>
+#include <leo_can/CANBusFrame.h>
 
-using namespace leoCAN;
+using namespace leo_can;
 
 // Default initialization of a CAN frame
 CANBusFrame::CANBusFrame() : 
